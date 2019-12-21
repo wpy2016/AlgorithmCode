@@ -37,22 +37,36 @@ public class QueueUseStack {
 
     static class QueueStack
     {
-        private Stack<Integer> stackQueue = new Stack<>();
-        private Stack<Integer> stackSwap = new Stack<>();
+        private Stack<Integer> stackPush = new Stack<>();
+        private Stack<Integer> stackPop = new Stack<>();
 
         public void add(Integer value)
         {
-            stackQueue.add(value);
+            stackPush.add(value);
         }
 
         public Integer poll()
         {
-            return stackQueue.pop();
+            pushToPop();
+            return stackPop.pop();
         }
 
         public Integer peek()
         {
-            return stackQueue.peek();
+            pushToPop();
+            return stackPop.peek();
+        }
+
+        private void pushToPop()
+        {
+            if (!stackPop.isEmpty())
+            {
+                return;
+            }
+            while(!stackPush.isEmpty())
+            {
+                stackPop.add(stackPush.pop());
+            }
         }
     }
 
